@@ -7,10 +7,25 @@ use Pushover\Tests\PushoverTestCase;
 
 class PushoverServiceTest extends PushoverTestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->useFaker();
+    }
+
     public function testBasicTest()
     {
-        $message = new PushoverMessage('Testing', 'This is the first message!');
+        $message = new PushoverMessage($this->faker->word, $this->faker->sentence);
 
-        dd($message->send());
+        $message
+            ->sound('persistent')
+            ->priority(2)
+            ->retry(30)
+            ->expire(120);
+
+        $response = $message->send();
+
+        dd($response->receipt()->get());
     }
 }

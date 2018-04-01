@@ -4,6 +4,7 @@ namespace Pushover\Tests;
 
 use Exception;
 use Faker\Factory;
+use Faker\Generator;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Exceptions\Handler;
 use Tests\TestCase;
@@ -11,9 +12,9 @@ use Tests\TestCase;
 abstract class PushoverTestCase extends TestCase
 {
     /**
-     * @var Factory
+     * @var Generator
      */
-    private $faker;
+    protected $faker;
 
     /**
      * Disables exception handling for tests.
