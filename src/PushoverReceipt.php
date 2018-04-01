@@ -3,11 +3,11 @@
 namespace Pushover;
 
 use Pushover\Api\ApiService;
+use Pushover\Responses\LimitsResponse;
+use Pushover\Responses\ReceiptResponse;
 
 class PushoverReceipt
 {
-    private $status;
-    private $request;
     private $api;
     private $receiptToken;
 
@@ -22,6 +22,16 @@ class PushoverReceipt
         sleep(2);
         $endpoint = '/1/receipts/' . $this->receiptToken . '.json';
 
-        return $this->api->get($endpoint);
+        $response = $this->api->get($endpoint);
+
+        return new ReceiptResponse($response);
+    }
+
+    public function cancel()
+    {
+        sleep(2);
+        $endpoint = '/1/receipts/' . $this->receiptToken . '/cancel.json';
+
+        return $this->api->post($endpoint);
     }
 }

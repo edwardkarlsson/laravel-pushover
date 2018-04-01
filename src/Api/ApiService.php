@@ -10,7 +10,7 @@ class ApiService
      *
      * @return mixed
      */
-    public function call(string $endpoint, array $payload = [])
+    public function post(string $endpoint, array $payload = [])
     {
         $url = 'https://api.pushover.net' . $endpoint;
 

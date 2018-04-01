@@ -2,10 +2,22 @@
 
 namespace Pushover;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Pushover\Api\ApiService;
+use Pushover\Responses\MessageResponse;
 
-class PushoverMessage
+class PushoverMessage implements Arrayable
 {
+    protected $hidden = ['api'];
+
+    /**
+     * Endpoint for retrieving limitations
+     *
+     * @var string
+     */
+    private $endpoint = '/1/messages.json';
+
+
     /**
      * @var string
      */
@@ -24,17 +36,21 @@ class PushoverMessage
     private $expire;
     private $retry;
     private $sound;
+    private $callback;
+    private $device;
+    private $url;
+    private $url_title;
 
     /**
      * PushoverMessage constructor.
      *
-     * @param string $title
      * @param string $message
+     * @param string $title
      */
-    public function __construct(string $title = null, string $message = null)
+    public function __construct(string $message, string $title = null)
     {
-        $this->title = $title;
         $this->message = $message;
+        $this->title = $title;
         $this->api = new ApiService();
     }
 
@@ -50,21 +66,30 @@ class PushoverMessage
         return $this;
     }
 
-    /**
-     * @param string $message
-     *
-     * @return $this
-     */
-    public function message(string $message)
+    public function sound($sound)
     {
-        $this->message = $message;
+        $this->sound = $sound;
 
         return $this;
     }
 
-    public function sound($sound)
+    public function url(string $url)
     {
-        $this->sound = $sound;
+        $this->url = $url;
+
+        return $this;
+    }
+
+    public function urlTitle(string $urlTitle)
+    {
+        $this->url_title = $urlTitle;
+
+        return $this;
+    }
+
+    public function device(string $device)
+    {
+        $this->device = $device;
 
         return $this;
     }
@@ -90,6 +115,13 @@ class PushoverMessage
         return $this;
     }
 
+    public function callback(string $callbackUrl)
+    {
+        $this->callback = $callbackUrl;
+
+        return $this;
+    }
+
     /**
      * @return array
      */
@@ -98,24 +130,26 @@ class PushoverMessage
         return [
             'title' => $this->title,
             'message' => $this->message,
+            'url' => $this->url,
+            'url_title' => $this->url_title,
             'sound' => $this->sound,
             'priority' => $this->priority,
+            'device' => $this->device,
             'retry' => $this->retry,
             'expire' => $this->expire,
+            'callback' => $this->callback,
         ];
     }
 
     /**
      * @param string|null $time
      *
-     * @return PushoverResponse
+     * @return MessageResponse
      */
     public function send(string $time = null)
     {
-        $endpoint = '/1/messages.json';
+        $response = $this->api->post($this->endpoint, $this->toArray());
 
-        $response = $this->api->call($endpoint, $this->toArray());
-
-        return (new PushoverResponse())->make($response);
+        return new MessageResponse($response);
     }
 }
