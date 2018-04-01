@@ -2,6 +2,7 @@
 	"name": "edwardkarlsson/laravel-pushover",
 	"description": "Simple but powerful pushover API implementation for Laravel",
 	"type": "library",
+	"keywords": ["laravel", "pushover", "notification"],
 	"authors": [
 		{
 			"name": "Edward Karlsson",
