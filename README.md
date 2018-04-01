@@ -32,6 +32,7 @@ To send a notification, simply add this to your code:
 $message = new PushoverMessage('My message');
 $message->send();
 ```
+_Don't forget to import the class into your file: `use Pushover\PushoverMessage;`_
 
 Advanced usage:
 ```php
