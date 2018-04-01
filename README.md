@@ -2,13 +2,13 @@
 
 A simple, yet very powerful, package that helps you get started with sending push notifications to your iOS or Android device through the [pushover.net](https://pushover.net/) service.
 
-#### Content
+### Content
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Usage](#usage)
 - [License](#license)
 
-#### Installation
+### Installation
 To get the latest version of edwardkarlsson/laravel-pushover simply require it in your `composer.json` file.
 
 ```bash
@@ -17,7 +17,7 @@ composer require edwardkarlsson/laravel-pushover:dev-master
 
 This package utilizes the autodiscovery features of Laravel so the installation will be a breeze.
 
-#### Configuration
+### Configuration
 The only configuration you need to do is to add the following to your `.env` file
 
 ```js
@@ -25,8 +25,8 @@ PUSHOVER_TOKEN=[enter your token here]
 PUSHOVER_USER=[place this your user key here]
 ```
 
-#### Usage
-##### Send message
+### Usage
+#### Send message
 To send a notification, simply add this to your code:
 ```php
 $message = new PushoverMessage('My message');
@@ -46,7 +46,7 @@ $message
     ->send();
 ```
 
-##### Get limits
+#### Get limits
 To get your monthly limits, write the following:
 ```php
 $limitation = new PushoverLimitation();
@@ -58,20 +58,7 @@ echo $limitsResponse->remaining();
 echo $limitsResponse->reset();
 ```
 
-##### Get limits
-To get your monthly limits, write the following:
-```php
-$limitation = new PushoverLimitation();
-
-$limitsResponse = $limitation->get();
-
-// Available methods
-$limitsResponse->limit(); // returns int
-$limitsResponse->remaining(); // returns int
-$limitsResponse->reset(); // returns Carbon
-```
-
-##### Get receipt
+#### Get receipt
 When a message with priority `2` is sent, you can get a receipt to check on the acknowledgment of the message.
 
 ```php
