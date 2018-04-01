@@ -26,8 +26,77 @@ PUSHOVER_USER=[place this your user key here]
 ```
 
 #### Usage
+##### Send message
 To send a notification, simply add this to your code:
 ```php
 $message = new PushoverMessage('My message');
 $message->send();
 ```
+
+Advanced usage:
+```php
+$message = new PushoverMessage('My message');
+        
+$message
+    ->sound('cashregister')
+    ->url('http://example.com')
+    ->urlTitle('ExampleSite')
+    ->priority(1)
+    ->device('my-main-device')
+    ->send();
+```
+
+##### Get limits
+To get your monthly limits, write the following:
+```php
+$limitation = new PushoverLimitation();
+
+$limitsResponse = $limitation->get();
+
+echo $limitsResponse->limit();
+echo $limitsResponse->remaining();
+echo $limitsResponse->reset();
+```
+
+##### Get limits
+To get your monthly limits, write the following:
+```php
+$limitation = new PushoverLimitation();
+
+$limitsResponse = $limitation->get();
+
+// Available methods
+$limitsResponse->limit(); // returns int
+$limitsResponse->remaining(); // returns int
+$limitsResponse->reset(); // returns Carbon
+```
+
+##### Get receipt
+When a message with priority `2` is sent, you can get a receipt to check on the acknowledgment of the message.
+
+```php
+$message = new PushoverMessage($this->faker->sentence, $this->faker->word);
+
+$messageResponse = $message
+    ->priority(2)
+    ->retry(30)
+    ->expire(120)
+    ->send();
+
+$receiptResponse = $messageResponse->receipt()->get();
+
+// Available methods
+$receiptResponse->acknowledged(); // returns boolean
+$receiptResponse->acknowledgedAt(); // returns Carbon
+$receiptResponse->acknowledgedBy(); // returns string
+$receiptResponse->acknowledgedByDevice(); // returns string
+$receiptResponse->lastDeliveredAt(); // returns Carbon
+$receiptResponse->expired(); // returns boolean
+$receiptResponse->expiresAt(); // returns Carbon
+$receiptResponse->calledBack(); // returns boolean
+$receiptResponse->calledBackAt(); // returns Carbon
+```
+
+#### License
+
+Copyright (c) 2018 Edward Karlsson Licensed under the [MIT license](https://github.com/edwardkarlsson/laravel-pushover/blob/master/LICENSE).
