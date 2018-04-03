@@ -66,6 +66,11 @@ class PushoverMessage implements Arrayable
         return $this;
     }
 
+    /**
+     * @param $sound
+     *
+     * @return $this
+     */
     public function sound($sound)
     {
         $this->sound = $sound;
@@ -73,6 +78,11 @@ class PushoverMessage implements Arrayable
         return $this;
     }
 
+    /**
+     * @param string $url
+     *
+     * @return $this
+     */
     public function url(string $url)
     {
         $this->url = $url;
@@ -80,6 +90,11 @@ class PushoverMessage implements Arrayable
         return $this;
     }
 
+    /**
+     * @param string $urlTitle
+     *
+     * @return $this
+     */
     public function urlTitle(string $urlTitle)
     {
         $this->url_title = $urlTitle;
@@ -87,6 +102,11 @@ class PushoverMessage implements Arrayable
         return $this;
     }
 
+    /**
+     * @param string $device
+     *
+     * @return $this
+     */
     public function device(string $device)
     {
         $this->device = $device;
@@ -94,6 +114,11 @@ class PushoverMessage implements Arrayable
         return $this;
     }
 
+    /**
+     * @param $priority
+     *
+     * @return $this
+     */
     public function priority($priority)
     {
         $this->priority = $priority;
@@ -101,6 +126,11 @@ class PushoverMessage implements Arrayable
         return $this;
     }
 
+    /**
+     * @param int $interval
+     *
+     * @return $this
+     */
     public function retry(int $interval)
     {
         $this->retry = $interval;
@@ -108,6 +138,11 @@ class PushoverMessage implements Arrayable
         return $this;
     }
 
+    /**
+     * @param int $duration
+     *
+     * @return $this
+     */
     public function expire(int $duration)
     {
         $this->expire = $duration;
@@ -115,11 +150,28 @@ class PushoverMessage implements Arrayable
         return $this;
     }
 
+    /**
+     * @param string $callbackUrl
+     *
+     * @return $this
+     */
     public function callback(string $callbackUrl)
     {
         $this->callback = $callbackUrl;
 
         return $this;
+    }
+
+    /**
+     * @param string|null $time
+     *
+     * @return MessageResponse
+     */
+    public function send(string $time = null)
+    {
+        $response = $this->api->post($this->endpoint, $this->toArray());
+
+        return new MessageResponse($response);
     }
 
     /**
@@ -139,17 +191,5 @@ class PushoverMessage implements Arrayable
             'expire' => $this->expire,
             'callback' => $this->callback,
         ];
-    }
-
-    /**
-     * @param string|null $time
-     *
-     * @return MessageResponse
-     */
-    public function send(string $time = null)
-    {
-        $response = $this->api->post($this->endpoint, $this->toArray());
-
-        return new MessageResponse($response);
     }
 }

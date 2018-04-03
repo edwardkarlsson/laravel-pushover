@@ -1,6 +1,6 @@
 {
 	"name": "edwardkarlsson/laravel-pushover",
-	"description": "Simple but powerful pushover API implementation for Laravel",
+	"description": "A simple, yet very powerful, package that helps you get started with sending push notifications to your iOS or Android device through the pushover.net service.",
 	"type": "library",
 	"keywords": ["laravel", "pushover", "notification"],
 	"authors": [

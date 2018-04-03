@@ -18,7 +18,7 @@ class PushoverMessageTest extends PushoverTestCase
         $this->useFaker();
     }
 
-    public function testResponseTypes()
+    public function testSendMessage()
     {
         $message = new PushoverMessage($this->faker->sentence);
 

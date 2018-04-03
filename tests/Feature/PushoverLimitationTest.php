@@ -16,7 +16,7 @@ class PushoverLimitationTest extends PushoverTestCase
         $this->useFaker();
     }
 
-    public function testResponseTypes()
+    public function testLimitations()
     {
         $limitation = new PushoverLimitation();
 
