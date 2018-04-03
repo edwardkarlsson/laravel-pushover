@@ -3,6 +3,7 @@
 	"description": "A simple, yet very powerful, package that helps you get started with sending push notifications to your iOS or Android device through the pushover.net service.",
 	"type": "library",
 	"keywords": ["laravel", "pushover", "notification"],
+	"license": "MIT",
 	"authors": [
 		{
 			"name": "Edward Karlsson",
