@@ -36,6 +36,7 @@ class PushoverMessage implements Arrayable
     private $expire;
     private $retry;
     private $sound;
+    private $html;
     private $callback;
     private $device;
     private $url;
@@ -74,6 +75,16 @@ class PushoverMessage implements Arrayable
     public function sound($sound)
     {
         $this->sound = $sound;
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function isHtml()
+    {
+        $this->html = 1;
 
         return $this;
     }
@@ -185,6 +196,7 @@ class PushoverMessage implements Arrayable
             'url' => $this->url,
             'url_title' => $this->url_title,
             'sound' => $this->sound,
+            'html' => $this->html,
             'priority' => $this->priority,
             'device' => $this->device,
             'retry' => $this->retry,
