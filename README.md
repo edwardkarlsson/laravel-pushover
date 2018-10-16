@@ -32,11 +32,16 @@ To send a notification, simply add this to your code:
 $message = new PushoverMessage('My message');
 $message->send();
 ```
+You can optionally add a second parameter that will be attached as a title to the message
+```php
+$message = new PushoverMessage('My content', 'My title');
+$message->send();
+```
 _Don't forget to import the class into your file: `use Pushover\PushoverMessage;`_
 
 Advanced usage:
 ```php
-$message = new PushoverMessage('<b>My message!<b> With content.');
+$message = new PushoverMessage('My <b>message</b> content.', 'My title!');
         
 $message->isHtml()
     ->sound('cashregister')
