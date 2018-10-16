@@ -36,9 +36,9 @@ _Don't forget to import the class into your file: `use Pushover\PushoverMessage;
 
 Advanced usage:
 ```php
-$message = new PushoverMessage('My message');
+$message = new PushoverMessage('<b>My message!<b> With content.');
         
-$message
+$message->isHtml()
     ->sound('cashregister')
     ->url('http://example.com')
     ->urlTitle('ExampleSite')
